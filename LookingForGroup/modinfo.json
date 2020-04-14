@@ -1,0 +1,9 @@
+{
+  "type": "code",
+  "name": "LookingForGroup",
+  "description" : "List of players lfg",
+  "author": "tylermcwilliams",
+  "version": "1.0",
+  "gameversions": [ "1.6.0.0+" ],
+  "website": "http://wiki.vintagestory.at/index.php?title=Data_Storage"
+}
