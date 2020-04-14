@@ -32,6 +32,12 @@ namespace Vintagestory.ServerMods
             switch (cmd)
             {
                 case "list":
+                    if (players.Count == 0)
+                    {
+                        player.SendMessage(groupId, "Noone is looking for group!", EnumChatType.Notification);
+                        break;
+                    }
+
                     string lfgList = "Players looking for group:";
 
                     players.ForEach((playerUid) =>
