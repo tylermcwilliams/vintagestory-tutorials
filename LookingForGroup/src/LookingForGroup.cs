@@ -23,17 +23,22 @@ namespace Vintagestory.ServerMods
                 return;
             }
 
-            byte[] data = serverApi.WorldManager.GetData("lfg");
+            byte[] data = serverApi.WorldManager.SaveGame.GetData("lfg");
 
             List<string> players = data == null ? new List<string>() : SerializerUtil.Deserialize<List<string>>(data);
 
-            string cmd = args.PopSingle();
+            string cmd = args.PopWord();
 
             switch (cmd)
             {
                 case "list":
-                    string lfgList = "Players looking for group:";
+                    if (players.Count == 0)
+                    {
+                        player.SendMessage(groupId, "Noone is looking for group!", EnumChatType.Notification);
+                        break;
+                    }
 
+                    string lfgList = "Players looking for group:";
                     players.ForEach((playerUid) =>
                     {
                         lfgList += "\n" + serverApi.World.PlayerByUid(playerUid).PlayerName;
@@ -52,7 +57,7 @@ namespace Vintagestory.ServerMods
                         players.Add(player.PlayerUID);
                         data = SerializerUtil.Serialize(players);
 
-                        serverApi.WorldManager.StoreData("lfg", data);
+                        serverApi.WorldManager.SaveGame.StoreData("lfg", data);
 
                         player.SendMessage(groupId, "Successfully joined!", EnumChatType.Notification);
                     }
@@ -67,7 +72,7 @@ namespace Vintagestory.ServerMods
                     {
                         data = SerializerUtil.Serialize(players);
 
-                        serverApi.WorldManager.StoreData("lfg", data);
+                        serverApi.WorldManager.SaveGame.StoreData("lfg", data);
 
                         player.SendMessage(groupId, "Successfully left!", EnumChatType.Notification);
                     }

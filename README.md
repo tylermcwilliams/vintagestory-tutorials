@@ -1,1 +1,1 @@
-# vintagestory-tutorials
+# VintageStory Tutorials
